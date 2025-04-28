@@ -1,0 +1,35 @@
+import React, { useState } from 'react';
+import '../styles/style.css';
+
+const SavedNotes = () => {
+  const [notes, setNotes] = useState([
+    { id: 1, title: "Introduction to Calculus", desc: "A comprehensive overview of basic calculus concepts..." },
+    { id: 2, title: "Python Programming Basics", desc: "Fundamentals of Python syntax, data types, loops..." },
+  ]);
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to remove this saved note?')) {
+      setNotes(notes.filter(note => note.id !== id));
+    }
+  };
+
+  return (
+    <main className="main-content">
+      <h2>Your Saved Notes (PDFs)</h2>
+      <div className="notes-grid">
+        {notes.map(note => (
+          <div key={note.id} className="note-card" style={{ position: "relative" }}>
+            <span className="delete-icon-wrapper" onClick={() => handleDelete(note.id)}>
+              <i className="fas fa-trash-alt"></i>
+            </span>
+            <h3>{note.title}</h3>
+            <p>{note.desc} (PDF)</p>
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+};
+
+export default SavedNotes;
+
